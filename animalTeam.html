@@ -1,0 +1,1896 @@
+<!DOCTYPE html>
+<!-- delay_demo from http://tympanus.net/Tutorials/OriginalHoverEffects/index3.html -->
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <head>
+            <style>
+                #delay_demo {
+                    position: relative;
+                    width: 90vmin;
+                    height: 90vmin;
+                    margin: 0 auto 1vmin;
+                    border: 0.2vmin #aaa solid;
+                    border-radius: 50%;
+                    padding: 1vmin;
+                }
+                #delay_demo .instruction {
+                    width: 90vmin;
+                    text-align: center;
+                    position: absolute;
+                    bottom: 20px;
+                    font-size: 40px;
+                    opacity: 0.3;
+                    z-index: -1000;
+                }
+
+                #delay_demo:hover .instruction {
+                    opacity: 0;
+                }
+
+                .dd {
+                    width: 30vmin;
+                    height: 30vmin;
+                    text-align: center;
+                    position: absolute;
+                    top: 31vmin;
+                    left: 31vmin;
+                    transition: transform 1s ease-in-out, opacity 0.3s;
+                    /* Ensures that the element is being transformed in the 3d context so that hw acceleration kicks in where appropriate. */
+                }
+
+                .dd:not(.main) {
+                    transform: translate(0,0) scale(.1) rotateX(0deg);
+                    opacity: 0;
+                }
+
+                .circle img {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+                    border-radius: 50%;
+                }
+
+                .circle h1 {
+                    z-index: 150;
+                    overflow: visible;
+                }
+
+                #delay_demo:hover .dd.circle {
+                    height: 30vmin;
+                    width: 30vmin;
+                    opacity: 1;
+                }
+
+                #delay_demo .dd img {
+                    opacity: 0.3;
+                }
+
+                #delay_demo:hover .dd img {
+                    opacity: 0.3;
+                }
+
+                #delay_demo div.dd:nth-child(2) {
+                    transition-delay: 0.1s;
+                }
+
+                #delay_demo div.dd:nth-child(3) {
+                    transition-delay: 0.2s;
+                }
+
+                #delay_demo div.dd:nth-child(4) {
+                    transition-delay: 0.3s;
+                }
+
+                #delay_demo div.dd:nth-child(5) {
+                    transition-delay: 0.4s;
+                }
+
+                #delay_demo div.dd:nth-child(6) {
+                    transition-delay: 0.5s;
+                }
+
+                #delay_demo:hover #dd_main {
+                    opacity: 0.2;
+                    transform: scale(0.9);
+                }
+
+                #delay_demo:hover div.dd:nth-child(2) {
+                    transform: translate(-30vmin,15vmin) rotate(15deg);
+                }
+
+                #delay_demo:hover div.dd:nth-child(3) {
+                    transform: translate(-23vmin,-20vmin) rotate(5deg);
+                }
+
+                #delay_demo:hover div.dd:nth-child(4) {
+                    transform: translate(0vmin,34vmin);
+                }
+
+                #delay_demo:hover div.dd:nth-child(5) {
+                    transform: translate(23vmin,-20vmin) rotate(-5deg);
+                }
+
+                #delay_demo:hover div.dd:nth-child(6) {
+                    transform: translate(30vmin,15vmin) rotate(-15deg);
+                }
+
+                #delay_demo .dd:hover img {
+                    transition: opacity 0.3s ease-in-out 0s;
+                    opacity: 0.8;
+                }
+
+                .circle.main {
+                    background-image: -webkit-linear-gradient(10deg,#f9c7bb, #fff,#f9c7bb);
+                    border-radius: 50%;
+                }
+
+                div.content {
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    text-align: center;
+                    z-index: 5;
+                    overflow: visible;
+                }
+
+                .emoji {
+                    font-size: 5em;
+                    text-align: center;
+                }
+                .emoj {
+                    transition: all 0.3s ease-in-out;
+                    opacity:0.8;
+                }
+                .emoj:hover{
+                    font-size:1.2em;
+                    opacity:1;
+                }
+
+                a:link {
+                    text-decoration: none;
+                }
+
+                .dd .image {
+                    width: 100%;
+                    position: absolute;
+                    opacity: 1;
+                }
+                .dd .flag {
+                    left:50%;
+                    top:0;
+                    position: absolute; 
+                    opacity: 1;
+                }
+
+                .dd .content {
+                    opacity: 0.2;
+                    z-index: -1000;
+                }
+
+                .dd:hover .image {
+                    opacity: 0.3;
+                }
+
+                .dd:hover .content {
+                    opacity: 1;
+                }
+                details {
+                    font-size:2em;
+                }
+                details summary {
+                    font-size:0.5em;
+                               
+                }
+                ul {
+                 list-style-type: none;
+                }
+            </style>
+        <body>
+            <div class="container">
+                <div id="delay_demo" class="shadow hover">
+                    <div id="dd_main" class="dd circle main">
+                        <span class="emoji">peacock</span><br/>
+                        <h3>My team</h3>
+                    </div>
+                    <div id="dd1" class="dd circle">
+                        <div class="image">
+                            <a href="cards.css">
+                                <span class="emoji">hedgehog</span>
+                            </a>
+                        </div>
+                        <div class="content">
+                            <ul>Laura B
+                            <li>likes sweets</li>
+                            <li>sews dresses</li>
+                         </div>
+                    </div>
+                    <div id="dd2" class="dd circle">
+                        <div class="image">
+                            <a href="cards.css">
+                                <span class="emoji">ewe</span>
+                            </a>
+                        </div>
+                        <div class="content">
+                            <ul>Carolyn M
+                            <li>likes pies</li>
+                            <li>plays games</li>
+                        </div>
+                    </div>
+                    <div id="dd3" class="dd circle">
+                        <div class="image">
+                            <a href="cards.css">
+                                <span class="emoji">leopard</span>
+                            </a>
+                        </div>
+                        <div class="content">
+                            <ul>Jessie B
+                            <li>likes fruit</li>
+                            <li>runs outside</li>
+                        </div>
+                    </div>
+                    <div id="dd4" class="dd circle">
+                        <div class="image">
+                            <a href="cards.css">
+                                <span class="emoji">pig</span>
+                            </a>
+                        </div>
+                        <div class="content">
+                            <ul>Jim B
+                            <li>likes eating</li>
+                            <li>watches sports</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="dd5" class="dd circle">
+                        <div class="image">
+                            <a href="cards.css">
+                                <span class="emoji">turkey</span>
+                            </a>
+                        </div>
+                        <div class="content">
+                            <ul>Julie B
+                            <li>likes lattes</li>
+                            <li>watches Schitt's Creek</li>
+                            </ul>                        </div>
+                    </div>
+                    <p class="instruction">Hover on me</p>
+                </div>
+            </div>
+            <p style="font-size:0.75em;">This is play with emojis that will one eventually be encorporated into a team building
+            page that will use a spread sheet to populate data about individuals on teams.  As well, 
+            It's an exploration on accessiblity issues with text and images. Hover over the emojis in the lists
+            below to see extra infomation or textual descriptions. </p>
+            <div id="lists" style="font-size:1em;"><h2>Emoji lists</h2></div>
+        </body>
+        <script type="text/javascript">
+            //---------------------
+            skin = [127995, 127996, 127997, 127998, 127999];
+            parts = [["waving hand", [128075]], ["raised back of hand", [129306]], ["hand with fingers splayed", [128400]], ["raised hand", [9995]], ["vulcan salute", [128406]], ["OK hand", [128076]], ["pinching hand", [129295]], ["victory hand", [9996]], ["crossed fingers", [129310]], ["love-you gesture", [129311]], ["sign of the horns", [129304]], ["call me hand", [129305]], ["backhand index pointing left", [128072]], ["backhand index pointing right", [128073]], ["backhand index pointing up", [128070]], ["middle finger", [128405]], ["backhand index pointing down", [128071]], ["index pointing up", [9757]], ["thumbs up", [128077]], ["thumbs down", [128078]], ["raised fist", [9994]], ["oncoming fist", [128074]], ["left-facing fist", [129307]], ["right-facing fist", [129308]], ["clapping hands", [128079]], ["raising hands", [128588]], ["open hands", [128080]], ["palms up together", [129330]], ["handshake", [129309]], ["folded hands", [128591]], ["writing hand", [9997]], ["nail polish", [128133]], ["selfie", [129331]], ["flexed biceps", [128170]], ["leg", [129461]], ["foot", [129462]], ["ear", [128066]], ["ear with hearing aid", [129467]], ["nose", [128067]]];
+
+            peopleMat = [["baby", "whole", [128118]], ["child", "whole", [129490]], ["boy", "whole", [128102]], ["girl", "whole", [128103]], ["person", "whole", [129489]], ["person: blond hair", "partial", [128113]], ["man", "whole", [128104]], ["person: beard", "whole", [129492]], ["man: red hair", "partial", [128104, 8205, 129456]], ["man: curly hair", "partial", [128104, 8205, 129457]], ["man: white hair", "partial", [128104, 8205, 129459]], ["man: bald", "partial", [128104, 8205, 129458]], ["woman", "whole", [128105]], ["woman: red hair", "partial", [128105, 8205, 129456]], ["person: red hair", "partial", [129489, 8205, 129456]], ["woman: curly hair", "partial", [128105, 8205, 129457]], ["person: curly hair", "partial", [129489, 8205, 129457]], ["woman: white hair", "partial", [128105, 8205, 129459]], ["person: white hair", "partial", [129489, 8205, 129459]], ["woman: bald", "partial", [128105, 8205, 129458]], ["person: bald", "partial", [129489, 8205, 129458]], ["woman: blond hair", "partial", [128113, 8205, 9792, 65039]], ["man: blond hair", "partial", [128113, 8205, 9794, 65039]], ["older person", "whole", [129491]], ["old man", "whole", [128116]], ["old woman", "whole", [128117]], ["person frowning", "partial", [128589]], ["man frowning", "partial", [128589, 8205, 9794, 65039]], ["woman frowning", "partial", [128589, 8205, 9792, 65039]], ["person pouting", "partial", [128590]], ["man pouting", "partial", [128590, 8205, 9794, 65039]], ["woman pouting", "partial", [128590, 8205, 9792, 65039]], ["person gesturing NO", "partial", [128581]], ["man gesturing NO", "partial", [128581, 8205, 9794, 65039]], ["woman gesturing NO", "partial", [128581, 8205, 9792, 65039]], ["person gesturing OK", "partial", [128582]], ["man gesturing OK", "partial", [128582, 8205, 9794, 65039]], ["woman gesturing OK", "partial", [128582, 8205, 9792, 65039]], ["person tipping hand", "partial", [128129]], ["man tipping hand", "partial", [128129, 8205, 9794, 65039]], ["woman tipping hand", "partial", [128129, 8205, 9792, 65039]], ["person raising hand", "partial", [128587]], ["man raising hand", "partial", [128587, 8205, 9794, 65039]], ["woman raising hand", "partial", [128587, 8205, 9792, 65039]], ["deaf person", "partial", [129487]], ["deaf man", "partial", [129487, 8205, 9794, 65039]], ["deaf woman", "partial", [129487, 8205, 9792, 65039]], ["person bowing", "partial", [128583]], ["man bowing", "partial", [128583, 8205, 9794, 65039]], ["woman bowing", "partial", [128583, 8205, 9792, 65039]], ["person facepalming", "partial", [129318]], ["man facepalming", "partial", [129318, 8205, 9794, 65039]], ["woman facepalming", "partial", [129318, 8205, 9792, 65039]], ["person shrugging", "partial", [129335]], ["man shrugging", "partial", [129335, 8205, 9794, 65039]], ["woman shrugging", "partial", [129335, 8205, 9792, 65039]], ["health worker", "partial", [129489, 8205, 9877, 65039]], ["man health worker", "partial", [128104, 8205, 9877, 65039]], ["woman health worker", "partial", [128105, 8205, 9877, 65039]], ["student", "partial", [129489, 8205, 127891]], ["man student", "partial", [128104, 8205, 127891]], ["woman student", "partial", [128105, 8205, 127891]], ["teacher", "partial", [129489, 8205, 127979]], ["man teacher", "partial", [128104, 8205, 127979]], ["woman teacher", "partial", [128105, 8205, 127979]], ["judge", "partial", [129489, 8205, 9878, 65039]], ["man judge", "partial", [128104, 8205, 9878, 65039]], ["woman judge", "partial", [128105, 8205, 9878, 65039]], ["farmer", "partial", [129489, 8205, 127806]], ["man farmer", "partial", [128104, 8205, 127806]], ["woman farmer", "partial", [128105, 8205, 127806]], ["cook", "partial", [129489, 8205, 127859]], ["man cook", "partial", [128104, 8205, 127859]], ["woman cook", "partial", [128105, 8205, 127859]], ["mechanic", "partial", [129489, 8205, 128295]], ["man mechanic", "partial", [128104, 8205, 128295]], ["woman mechanic", "partial", [128105, 8205, 128295]], ["factory worker", "partial", [129489, 8205, 127981]], ["man factory worker", "partial", [128104, 8205, 127981]], ["woman factory worker", "partial", [128105, 8205, 127981]], ["office worker", "partial", [129489, 8205, 128188]], ["man office worker", "partial", [128104, 8205, 128188]], ["woman office worker", "partial", [128105, 8205, 128188]], ["scientist", "partial", [129489, 8205, 128300]], ["man scientist", "partial", [128104, 8205, 128300]], ["woman scientist", "partial", [128105, 8205, 128300]], ["technologist", "partial", [129489, 8205, 128187]], ["man technologist", "partial", [128104, 8205, 128187]], ["woman technologist", "partial", [128105, 8205, 128187]], ["singer", "partial", [129489, 8205, 127908]], ["man singer", "partial", [128104, 8205, 127908]], ["woman singer", "partial", [128105, 8205, 127908]], ["artist", "partial", [129489, 8205, 127912]], ["man artist", "partial", [128104, 8205, 127912]], ["woman artist", "partial", [128105, 8205, 127912]], ["pilot", "partial", [129489, 8205, 9992, 65039]], ["man pilot", "partial", [128104, 8205, 9992, 65039]], ["woman pilot", "partial", [128105, 8205, 9992, 65039]], ["astronaut", "partial", [129489, 8205, 128640]], ["man astronaut", "partial", [128104, 8205, 128640]], ["woman astronaut", "partial", [128105, 8205, 128640]], ["firefighter", "partial", [129489, 8205, 128658]], ["man firefighter", "partial", [128104, 8205, 128658]], ["woman firefighter", "partial", [128105, 8205, 128658]], ["police officer", "partial", [128110]], ["man police officer", "partial", [128110, 8205, 9794, 65039]], ["woman police officer", "partial", [128110, 8205, 9792, 65039]], ["detective", "partial", [128373]], ["guard", "partial", [128130]], ["man guard", "partial", [128130, 8205, 9794, 65039]], ["woman guard", "partial", [128130, 8205, 9792, 65039]], ["construction worker", "partial", [128119]], ["man construction worker", "partial", [128119, 8205, 9794, 65039]], ["woman construction worker", "partial", [128119, 8205, 9792, 65039]], ["prince", "partial", [129332]], ["princess", "partial", [128120]], ["person wearing turban", "partial", [128115]], ["man wearing turban", "partial", [128115, 8205, 9794, 65039]], ["woman wearing turban", "partial", [128115, 8205, 9792, 65039]], ["person with skullcap", "partial", [128114]], ["woman with headscarf", "partial", [129493]], ["person in tuxedo", "partial", [129333]], ["person with veil", "partial", [128112]], ["pregnant woman", "partial", [129328]], ["breast-feeding", "partial", [129329]], ["baby angel", "whole", [128124]], ["Santa Claus", "partial", [127877]], ["Mrs. Claus", "partial", [129334]], ["superhero", "whole", [129464]], ["man superhero", "whole", [129464, 8205, 9794, 65039]], ["woman superhero", "whole", [129464, 8205, 9792, 65039]], ["supervillain", "whole", [129465]], ["man supervillain", "whole", [129465, 8205, 9794, 65039]], ["woman supervillain", "whole", [129465, 8205, 9792, 65039]], ["mage", "partial", [129497]], ["man mage", "partial", [129497, 8205, 9794, 65039]], ["woman mage", "partial", [129497, 8205, 9792, 65039]], ["fairy", "whole", [129498]], ["man fairy", "whole", [129498, 8205, 9794, 65039]], ["woman fairy", "whole", [129498, 8205, 9792, 65039]], ["vampire", "partial", [129499]], ["man vampire", "partial", [129499, 8205, 9794, 65039]], ["woman vampire", "partial", [129499, 8205, 9792, 65039]], ["merperson", "whole", [129500]], ["merman", "whole", [129500, 8205, 9794, 65039]], ["mermaid", "whole", [129500, 8205, 9792, 65039]], ["elf", "partial", [129501]], ["man elf", "partial", [129501, 8205, 9794, 65039]], ["woman elf", "partial", [129501, 8205, 9792, 65039]], ["person getting massage", "partial", [128134]], ["man getting massage", "partial", [128134, 8205, 9794, 65039]], ["woman getting massage", "partial", [128134, 8205, 9792, 65039]], ["person getting haircut", "partial", [128135]], ["man getting haircut", "partial", [128135, 8205, 9794, 65039]], ["woman getting haircut", "partial", [128135, 8205, 9792, 65039]], ["person walking", "whole", [128694]], ["man walking", "whole", [128694, 8205, 9794, 65039]], ["woman walking", "whole", [128694, 8205, 9792, 65039]], ["person standing", "whole", [129485]], ["man standing", "whole", [129485, 8205, 9794, 65039]], ["woman standing", "whole", [129485, 8205, 9792, 65039]], ["person kneeling", "whole", [129486]], ["man kneeling", "whole", [129486, 8205, 9794, 65039]], ["woman kneeling", "whole", [129486, 8205, 9792, 65039]], ["person with white cane", "whole", [129489, 8205, 129455]], ["man with white cane", "whole", [128104, 8205, 129455]], ["woman with white cane", "whole", [128105, 8205, 129455]], ["person in motorized wheelchair", "whole", [129489, 8205, 129468]], ["man in motorized wheelchair", "whole", [128104, 8205, 129468]], ["woman in motorized wheelchair", "whole", [128105, 8205, 129468]], ["person in manual wheelchair", "whole", [129489, 8205, 129469]], ["man in manual wheelchair", "whole", [128104, 8205, 129469]], ["woman in manual wheelchair", "whole", [128105, 8205, 129469]], ["person running", "whole", [127939]], ["man running", "whole", [127939, 8205, 9794, 65039]], ["woman running", "whole", [127939, 8205, 9792, 65039]], ["woman dancing", "whole", [128131]], ["man dancing", "whole", [128378]], ["person in suit levitating", "whole", [128372]], ["person in steamy room", "partial", [129494]], ["man in steamy room", "partial", [129494, 8205, 9794, 65039]], ["woman in steamy room", "partial", [129494, 8205, 9792, 65039]], ["person climbing", "partial", [129495]], ["man climbing", "partial", [129495, 8205, 9794, 65039]], ["woman climbing", "partial", [129495, 8205, 9792, 65039]], ["horse racing", "whole", [127943]], ["snowboarder", "partial", [127938]], ["person golfing", "whole", [127948]], ["person surfing", "partial", [127940]], ["man surfing", "partial", [127940, 8205, 9794, 65039]], ["woman surfing", "partial", [127940, 8205, 9792, 65039]], ["person rowing boat", "partial", [128675]], ["man rowing boat", "partial", [128675, 8205, 9794, 65039]], ["woman rowing boat", "partial", [128675, 8205, 9792, 65039]], ["person swimming", "partial", [127946]], ["man swimming", "partial", [127946, 8205, 9794, 65039]], ["woman swimming", "partial", [127946, 8205, 9792, 65039]], ["person bouncing ball", "whole", [9977]], ["person lifting weights", "whole", [127947]], ["person biking", "whole", [128692]], ["man biking", "whole", [128692, 8205, 9794, 65039]], ["woman biking", "whole", [128692, 8205, 9792, 65039]], ["person mountain biking", "partial", [128693]], ["man mountain biking", "partial", [128693, 8205, 9794, 65039]], ["woman mountain biking", "partial", [128693, 8205, 9792, 65039]], ["person cartwheeling", "whole", [129336]], ["man cartwheeling", "whole", [129336, 8205, 9794, 65039]], ["woman cartwheeling", "whole", [129336, 8205, 9792, 65039]], ["people wrestling", "whole", [129340]], ["men wrestling", "whole", [129340, 8205, 9794, 65039]], ["women wrestling", "whole", [129340, 8205, 9792, 65039]], ["person playing water polo", "partial", [129341]], ["man playing water polo", "partial", [129341, 8205, 9794, 65039]], ["woman playing water polo", "partial", [129341, 8205, 9792, 65039]], ["person playing handball", "whole", [129342]], ["man playing handball", "whole", [129342, 8205, 9794, 65039]], ["woman playing handball", "whole", [129342, 8205, 9792, 65039]], ["person juggling", "partial", [129337]], ["man juggling", "partial", [129337, 8205, 9794, 65039]], ["woman juggling", "partial", [129337, 8205, 9792, 65039]], ["person in lotus position", "whole", [129496]], ["man in lotus position", "whole", [129496, 8205, 9794, 65039]], ["woman in lotus position", "whole", [129496, 8205, 9792, 65039]], ["person taking bath", "whole", [128704]], ["person in bed", "whole", [128716]], ["women holding hands", "whole", [128109]], ["woman and man holding hands", "whole", [128107]], ["men holding hands", "whole", [128108]]];
+
+            let aniObj = {
+                'monkey face': {
+                    codes: [128053],
+                    desc: ""
+                },
+                'monkey': {
+                    codes: [128018],
+                    desc: ""
+                },
+                'gorilla': {
+                    codes: [129421],
+                    desc: ""
+                },
+                'orangutan': {
+                    codes: [129447],
+                    desc: ""
+                },
+                'dog face': {
+                    codes: [128054],
+                    desc: ""
+                },
+                'dog': {
+                    codes: [128021],
+                    desc: ""
+                },
+                'guide dog': {
+                    codes: [129454],
+                    desc: ""
+                },
+                'service dog': {
+                    codes: [128021, 8205, 129466],
+                    desc: ""
+                },
+                'poodle': {
+                    codes: [128041],
+                    desc: ""
+                },
+                'wolf': {
+                    codes: [128058],
+                    desc: ""
+                },
+                'fox': {
+                    codes: [129418],
+                    desc: ""
+                },
+                'raccoon': {
+                    codes: [129437],
+                    desc: ""
+                },
+                'cat face': {
+                    codes: [128049],
+                    desc: ""
+                },
+                'cat': {
+                    codes: [128008],
+                    desc: ""
+                },
+                'lion': {
+                    codes: [129409],
+                    desc: ""
+                },
+                'tiger face': {
+                    codes: [128047],
+                    desc: ""
+                },
+                'tiger': {
+                    codes: [128005],
+                    desc: ""
+                },
+                'leopard': {
+                    codes: [128006],
+                    desc: ""
+                },
+                'horse': {
+                    codes: [128014],
+                    desc: ""
+                },
+                'deer': {
+                    codes: [129420],
+                    desc: ""
+                },
+                'cow face': {
+                    codes: [128046],
+                    desc: ""
+                },
+                'ox': {
+                    codes: [128002],
+                    desc: ""
+                },
+                'water buffalo': {
+                    codes: [128003],
+                    desc: ""
+                },
+                'cow': {
+                    codes: [128004],
+                    desc: ""
+                },
+                'pig face': {
+                    codes: [128055],
+                    desc: ""
+                },
+                'pig': {
+                    codes: [128022],
+                    desc: ""
+                },
+                'pig nose': {
+                    codes: [128061],
+                    desc: ""
+                },
+                'ram': {
+                    codes: [128015],
+                    desc: ""
+                },
+                'ewe': {
+                    codes: [128017],
+                    desc: ""
+                },
+                'goat': {
+                    codes: [128016],
+                    desc: ""
+                },
+                'camel': {
+                    codes: [128042],
+                    desc: ""
+                },
+                'two-hump camel': {
+                    codes: [128043],
+                    desc: ""
+                },
+                'llama': {
+                    codes: [129433],
+                    desc: ""
+                },
+                'giraffe': {
+                    codes: [129426],
+                    desc: ""
+                },
+                'elephant': {
+                    codes: [128024],
+                    desc: ""
+                },
+                'hippopotamus': {
+                    codes: [129435],
+                    desc: ""
+                },
+                'mouse face': {
+                    codes: [128045],
+                    desc: ""
+                },
+                'mouse': {
+                    codes: [128001],
+                    desc: ""
+                },
+                'rat': {
+                    codes: [128000],
+                    desc: ""
+                },
+                'hamster': {
+                    codes: [128057],
+                    desc: ""
+                },
+                'rabbit face': {
+                    codes: [128048],
+                    desc: ""
+                },
+                'rabbit': {
+                    codes: [128007],
+                    desc: ""
+                },
+                'chipmunk': {
+                    codes: [128063],
+                    desc: ""
+                },
+                'hedgehog': {
+                    codes: [129428],
+                    desc: ""
+                },
+                'bat': {
+                    codes: [129415],
+                    desc: ""
+                },
+                'bear': {
+                    codes: [128059],
+                    desc: ""
+                },
+                'koala': {
+                    codes: [128040],
+                    desc: ""
+                },
+                'panda': {
+                    codes: [128060],
+                    desc: ""
+                },
+                'sloth': {
+                    codes: [129445],
+                    desc: ""
+                },
+                'otter': {
+                    codes: [129446],
+                    desc: ""
+                },
+                'skunk': {
+                    codes: [129448],
+                    desc: ""
+                },
+                'kangaroo': {
+                    codes: [129432],
+                    desc: ""
+                },
+                'badger': {
+                    codes: [129441],
+                    desc: ""
+                },
+                'paw prints': {
+                    codes: [128062],
+                    desc: ""
+                },
+                'turkey': {
+                    codes: [129411],
+                    desc: ""
+                },
+                'chicken': {
+                    codes: [128020],
+                    desc: ""
+                },
+                'rooster': {
+                    codes: [128019],
+                    desc: ""
+                },
+                'hatching chick': {
+                    codes: [128035],
+                    desc: ""
+                },
+                'baby chick': {
+                    codes: [128036],
+                    desc: ""
+                },
+                'front-facing baby chick': {
+                    codes: [128037],
+                    desc: ""
+                },
+                'bird': {
+                    codes: [128038],
+                    desc: ""
+                },
+                'penguin': {
+                    codes: [128039],
+                    desc: ""
+                },
+                'dove': {
+                    codes: [128330],
+                    desc: ""
+                },
+                'eagle': {
+                    codes: [129413],
+                    desc: ""
+                },
+                'duck': {
+                    codes: [129414],
+                    desc: ""
+                },
+                'swan': {
+                    codes: [129442],
+                    desc: ""
+                },
+                'owl': {
+                    codes: [129417],
+                    desc: ""
+                },
+                'flamingo': {
+                    codes: [129449],
+                    desc: ""
+                },
+                'peacock': {
+                    codes: [129434],
+                    desc: ""
+                },
+                'parrot': {
+                    codes: [129436],
+                    desc: ""
+                },
+                'frog': {
+                    codes: [128056],
+                    desc: ""
+                },
+                'crocodile': {
+                    codes: [128010],
+                    desc: ""
+                },
+                'turtle': {
+                    codes: [128034],
+                    desc: ""
+                },
+                'lizard': {
+                    codes: [129422],
+                    desc: ""
+                },
+                'snake': {
+                    codes: [128013],
+                    desc: ""
+                },
+                'dragon face': {
+                    codes: [128050],
+                    desc: ""
+                },
+                'dragon': {
+                    codes: [128009],
+                    desc: ""
+                },
+                'sauropod': {
+                    codes: [129429],
+                    desc: ""
+                },
+                'T-Rex': {
+                    codes: [129430],
+                    desc: ""
+                },
+                'spouting whale': {
+                    codes: [128051],
+                    desc: ""
+                },
+                'whale': {
+                    codes: [128011],
+                    desc: ""
+                },
+                'dolphin': {
+                    codes: [128044],
+                    desc: ""
+                },
+                'fish': {
+                    codes: [128031],
+                    desc: ""
+                },
+                'tropical fish': {
+                    codes: [128032],
+                    desc: ""
+                },
+                'blowfish': {
+                    codes: [128033],
+                    desc: ""
+                },
+                'shark': {
+                    codes: [129416],
+                    desc: ""
+                },
+                'octopus': {
+                    codes: [128025],
+                    desc: ""
+                },
+                'spiral shell': {
+                    codes: [128026],
+                    desc: ""
+                },
+                'snail': {
+                    codes: [128012],
+                    desc: ""
+                },
+                'butterfly': {
+                    codes: [129419],
+                    desc: ""
+                },
+                'bug': {
+                    codes: [128027],
+                    desc: ""
+                },
+                'ant': {
+                    codes: [128028],
+                    desc: ""
+                },
+                'honeybee': {
+                    codes: [128029],
+                    desc: ""
+                },
+                'lady beetle': {
+                    codes: [128030],
+                    desc: ""
+                },
+                'cricket': {
+                    codes: [129431],
+                    desc: ""
+                },
+                'spider': {
+                    codes: [128375],
+                    desc: ""
+                },
+                'spider web': {
+                    codes: [128376],
+                    desc: ""
+                },
+                'scorpion': {
+                    codes: [129410],
+                    desc: ""
+                },
+                'mosquito': {
+                    codes: [129439],
+                    desc: ""
+                },
+                'microbe': {
+                    codes: [129440],
+                    desc: ""
+                }
+            };
+
+            people = {
+                'baby': {
+                    desc: "whole",
+                    codes: [128118]
+                },
+                'child': {
+                    desc: "whole",
+                    codes: [129490]
+                },
+                'boy': {
+                    desc: "whole",
+                    codes: [128102]
+                },
+                'girl': {
+                    desc: "whole",
+                    codes: [128103]
+                },
+                'person': {
+                    desc: "whole",
+                    codes: [129489]
+                },
+                'person: blond hair': {
+                    desc: "partial",
+                    codes: [128113]
+                },
+                'man': {
+                    desc: "whole",
+                    codes: [128104]
+                },
+                'person: beard': {
+                    desc: "whole",
+                    codes: [129492]
+                },
+                'man: red hair': {
+                    desc: "partial",
+                    codes: [128104, 8205, 129456]
+                },
+                'man: curly hair': {
+                    desc: "partial",
+                    codes: [128104, 8205, 129457]
+                },
+                'man: white hair': {
+                    desc: "partial",
+                    codes: [128104, 8205, 129459]
+                },
+                'man: bald': {
+                    desc: "partial",
+                    codes: [128104, 8205, 129458]
+                },
+                'woman': {
+                    desc: "whole",
+                    codes: [128105]
+                },
+                'woman: red hair': {
+                    desc: "partial",
+                    codes: [128105, 8205, 129456]
+                },
+                'person: red hair': {
+                    desc: "partial",
+                    codes: [129489, 8205, 129456]
+                },
+                'woman: curly hair': {
+                    desc: "partial",
+                    codes: [128105, 8205, 129457]
+                },
+                'person: curly hair': {
+                    desc: "partial",
+                    codes: [129489, 8205, 129457]
+                },
+                'woman: white hair': {
+                    desc: "partial",
+                    codes: [128105, 8205, 129459]
+                },
+                'person: white hair': {
+                    desc: "partial",
+                    codes: [129489, 8205, 129459]
+                },
+                'woman: bald': {
+                    desc: "partial",
+                    codes: [128105, 8205, 129458]
+                },
+                'person: bald': {
+                    desc: "partial",
+                    codes: [129489, 8205, 129458]
+                },
+                'woman: blond hair': {
+                    desc: "partial",
+                    codes: [128113, 8205, 9792, 65039]
+                },
+                'man: blond hair': {
+                    desc: "partial",
+                    codes: [128113, 8205, 9794, 65039]
+                },
+                'older person': {
+                    desc: "whole",
+                    codes: [129491]
+                },
+                'old man': {
+                    desc: "whole",
+                    codes: [128116]
+                },
+                'old woman': {
+                    desc: "whole",
+                    codes: [128117]
+                },
+                'person frowning': {
+                    desc: "partial",
+                    codes: [128589]
+                },
+                'man frowning': {
+                    desc: "partial",
+                    codes: [128589, 8205, 9794, 65039]
+                },
+                'woman frowning': {
+                    desc: "partial",
+                    codes: [128589, 8205, 9792, 65039]
+                },
+                'person pouting': {
+                    desc: "partial",
+                    codes: [128590]
+                },
+                'man pouting': {
+                    desc: "partial",
+                    codes: [128590, 8205, 9794, 65039]
+                },
+                'woman pouting': {
+                    desc: "partial",
+                    codes: [128590, 8205, 9792, 65039]
+                },
+                'person gesturing NO': {
+                    desc: "partial",
+                    codes: [128581]
+                },
+                'man gesturing NO': {
+                    desc: "partial",
+                    codes: [128581, 8205, 9794, 65039]
+                },
+                'woman gesturing NO': {
+                    desc: "partial",
+                    codes: [128581, 8205, 9792, 65039]
+                },
+                'person gesturing OK': {
+                    desc: "partial",
+                    codes: [128582]
+                },
+                'man gesturing OK': {
+                    desc: "partial",
+                    codes: [128582, 8205, 9794, 65039]
+                },
+                'woman gesturing OK': {
+                    desc: "partial",
+                    codes: [128582, 8205, 9792, 65039]
+                },
+                'person tipping hand': {
+                    desc: "partial",
+                    codes: [128129]
+                },
+                'man tipping hand': {
+                    desc: "partial",
+                    codes: [128129, 8205, 9794, 65039]
+                },
+                'woman tipping hand': {
+                    desc: "partial",
+                    codes: [128129, 8205, 9792, 65039]
+                },
+                'person raising hand': {
+                    desc: "partial",
+                    codes: [128587]
+                },
+                'man raising hand': {
+                    desc: "partial",
+                    codes: [128587, 8205, 9794, 65039]
+                },
+                'woman raising hand': {
+                    desc: "partial",
+                    codes: [128587, 8205, 9792, 65039]
+                },
+                'deaf person': {
+                    desc: "partial",
+                    codes: [129487]
+                },
+                'deaf man': {
+                    desc: "partial",
+                    codes: [129487, 8205, 9794, 65039]
+                },
+                'deaf woman': {
+                    desc: "partial",
+                    codes: [129487, 8205, 9792, 65039]
+                },
+                'person bowing': {
+                    desc: "partial",
+                    codes: [128583]
+                },
+                'man bowing': {
+                    desc: "partial",
+                    codes: [128583, 8205, 9794, 65039]
+                },
+                'woman bowing': {
+                    desc: "partial",
+                    codes: [128583, 8205, 9792, 65039]
+                },
+                'person facepalming': {
+                    desc: "partial",
+                    codes: [129318]
+                },
+                'man facepalming': {
+                    desc: "partial",
+                    codes: [129318, 8205, 9794, 65039]
+                },
+                'woman facepalming': {
+                    desc: "partial",
+                    codes: [129318, 8205, 9792, 65039]
+                },
+                'person shrugging': {
+                    desc: "partial",
+                    codes: [129335]
+                },
+                'man shrugging': {
+                    desc: "partial",
+                    codes: [129335, 8205, 9794, 65039]
+                },
+                'woman shrugging': {
+                    desc: "partial",
+                    codes: [129335, 8205, 9792, 65039]
+                },
+                'health worker': {
+                    desc: "partial",
+                    codes: [129489, 8205, 9877, 65039]
+                },
+                'man health worker': {
+                    desc: "partial",
+                    codes: [128104, 8205, 9877, 65039]
+                },
+                'woman health worker': {
+                    desc: "partial",
+                    codes: [128105, 8205, 9877, 65039]
+                },
+                'student': {
+                    desc: "partial",
+                    codes: [129489, 8205, 127891]
+                },
+                'man student': {
+                    desc: "partial",
+                    codes: [128104, 8205, 127891]
+                },
+                'woman student': {
+                    desc: "partial",
+                    codes: [128105, 8205, 127891]
+                },
+                'teacher': {
+                    desc: "partial",
+                    codes: [129489, 8205, 127979]
+                },
+                'man teacher': {
+                    desc: "partial",
+                    codes: [128104, 8205, 127979]
+                },
+                'woman teacher': {
+                    desc: "partial",
+                    codes: [128105, 8205, 127979]
+                },
+                'judge': {
+                    desc: "partial",
+                    codes: [129489, 8205, 9878, 65039]
+                },
+                'man judge': {
+                    desc: "partial",
+                    codes: [128104, 8205, 9878, 65039]
+                },
+                'woman judge': {
+                    desc: "partial",
+                    codes: [128105, 8205, 9878, 65039]
+                },
+                'farmer': {
+                    desc: "partial",
+                    codes: [129489, 8205, 127806]
+                },
+                'man farmer': {
+                    desc: "partial",
+                    codes: [128104, 8205, 127806]
+                },
+                'woman farmer': {
+                    desc: "partial",
+                    codes: [128105, 8205, 127806]
+                },
+                'cook': {
+                    desc: "partial",
+                    codes: [129489, 8205, 127859]
+                },
+                'man cook': {
+                    desc: "partial",
+                    codes: [128104, 8205, 127859]
+                },
+                'woman cook': {
+                    desc: "partial",
+                    codes: [128105, 8205, 127859]
+                },
+                'mechanic': {
+                    desc: "partial",
+                    codes: [129489, 8205, 128295]
+                },
+                'man mechanic': {
+                    desc: "partial",
+                    codes: [128104, 8205, 128295]
+                },
+                'woman mechanic': {
+                    desc: "partial",
+                    codes: [128105, 8205, 128295]
+                },
+                'factory worker': {
+                    desc: "partial",
+                    codes: [129489, 8205, 127981]
+                },
+                'man factory worker': {
+                    desc: "partial",
+                    codes: [128104, 8205, 127981]
+                },
+                'woman factory worker': {
+                    desc: "partial",
+                    codes: [128105, 8205, 127981]
+                },
+                'office worker': {
+                    desc: "partial",
+                    codes: [129489, 8205, 128188]
+                },
+                'man office worker': {
+                    desc: "partial",
+                    codes: [128104, 8205, 128188]
+                },
+                'woman office worker': {
+                    desc: "partial",
+                    codes: [128105, 8205, 128188]
+                },
+                'scientist': {
+                    desc: "partial",
+                    codes: [129489, 8205, 128300]
+                },
+                'man scientist': {
+                    desc: "partial",
+                    codes: [128104, 8205, 128300]
+                },
+                'woman scientist': {
+                    desc: "partial",
+                    codes: [128105, 8205, 128300]
+                },
+                'technologist': {
+                    desc: "partial",
+                    codes: [129489, 8205, 128187]
+                },
+                'man technologist': {
+                    desc: "partial",
+                    codes: [128104, 8205, 128187]
+                },
+                'woman technologist': {
+                    desc: "partial",
+                    codes: [128105, 8205, 128187]
+                },
+                'singer': {
+                    desc: "partial",
+                    codes: [129489, 8205, 127908]
+                },
+                'man singer': {
+                    desc: "partial",
+                    codes: [128104, 8205, 127908]
+                },
+                'woman singer': {
+                    desc: "partial",
+                    codes: [128105, 8205, 127908]
+                },
+                'artist': {
+                    desc: "partial",
+                    codes: [129489, 8205, 127912]
+                },
+                'man artist': {
+                    desc: "partial",
+                    codes: [128104, 8205, 127912]
+                },
+                'woman artist': {
+                    desc: "partial",
+                    codes: [128105, 8205, 127912]
+                },
+                'pilot': {
+                    desc: "partial",
+                    codes: [129489, 8205, 9992, 65039]
+                },
+                'man pilot': {
+                    desc: "partial",
+                    codes: [128104, 8205, 9992, 65039]
+                },
+                'woman pilot': {
+                    desc: "partial",
+                    codes: [128105, 8205, 9992, 65039]
+                },
+                'astronaut': {
+                    desc: "partial",
+                    codes: [129489, 8205, 128640]
+                },
+                'man astronaut': {
+                    desc: "partial",
+                    codes: [128104, 8205, 128640]
+                },
+                'woman astronaut': {
+                    desc: "partial",
+                    codes: [128105, 8205, 128640]
+                },
+                'firefighter': {
+                    desc: "partial",
+                    codes: [129489, 8205, 128658]
+                },
+                'man firefighter': {
+                    desc: "partial",
+                    codes: [128104, 8205, 128658]
+                },
+                'woman firefighter': {
+                    desc: "partial",
+                    codes: [128105, 8205, 128658]
+                },
+                'police officer': {
+                    desc: "partial",
+                    codes: [128110]
+                },
+                'man police officer': {
+                    desc: "partial",
+                    codes: [128110, 8205, 9794, 65039]
+                },
+                'woman police officer': {
+                    desc: "partial",
+                    codes: [128110, 8205, 9792, 65039]
+                },
+                'detective': {
+                    desc: "partial",
+                    codes: [128373]
+                },
+                'guard': {
+                    desc: "partial",
+                    codes: [128130]
+                },
+                'man guard': {
+                    desc: "partial",
+                    codes: [128130, 8205, 9794, 65039]
+                },
+                'woman guard': {
+                    desc: "partial",
+                    codes: [128130, 8205, 9792, 65039]
+                },
+                'construction worker': {
+                    desc: "partial",
+                    codes: [128119]
+                },
+                'man construction worker': {
+                    desc: "partial",
+                    codes: [128119, 8205, 9794, 65039]
+                },
+                'woman construction worker': {
+                    desc: "partial",
+                    codes: [128119, 8205, 9792, 65039]
+                },
+                'prince': {
+                    desc: "partial",
+                    codes: [129332]
+                },
+                'princess': {
+                    desc: "partial",
+                    codes: [128120]
+                },
+                'person wearing turban': {
+                    desc: "partial",
+                    codes: [128115]
+                },
+                'man wearing turban': {
+                    desc: "partial",
+                    codes: [128115, 8205, 9794, 65039]
+                },
+                'woman wearing turban': {
+                    desc: "partial",
+                    codes: [128115, 8205, 9792, 65039]
+                },
+                'person with skullcap': {
+                    desc: "partial",
+                    codes: [128114]
+                },
+                'woman with headscarf': {
+                    desc: "partial",
+                    codes: [129493]
+                },
+                'person in tuxedo': {
+                    desc: "partial",
+                    codes: [129333]
+                },
+                'person with veil': {
+                    desc: "partial",
+                    codes: [128112]
+                },
+                'pregnant woman': {
+                    desc: "partial",
+                    codes: [129328]
+                },
+                'breast-feeding': {
+                    desc: "partial",
+                    codes: [129329]
+                },
+                'baby angel': {
+                    desc: "whole",
+                    codes: [128124]
+                },
+                'Santa Claus': {
+                    desc: "partial",
+                    codes: [127877]
+                },
+                'Mrs. Claus': {
+                    desc: "partial",
+                    codes: [129334]
+                },
+                'superhero': {
+                    desc: "whole",
+                    codes: [129464]
+                },
+                'man superhero': {
+                    desc: "whole",
+                    codes: [129464, 8205, 9794, 65039]
+                },
+                'woman superhero': {
+                    desc: "whole",
+                    codes: [129464, 8205, 9792, 65039]
+                },
+                'supervillain': {
+                    desc: "whole",
+                    codes: [129465]
+                },
+                'man supervillain': {
+                    desc: "whole",
+                    codes: [129465, 8205, 9794, 65039]
+                },
+                'woman supervillain': {
+                    desc: "whole",
+                    codes: [129465, 8205, 9792, 65039]
+                },
+                'mage': {
+                    desc: "partial",
+                    codes: [129497]
+                },
+                'man mage': {
+                    desc: "partial",
+                    codes: [129497, 8205, 9794, 65039]
+                },
+                'woman mage': {
+                    desc: "partial",
+                    codes: [129497, 8205, 9792, 65039]
+                },
+                'fairy': {
+                    desc: "whole",
+                    codes: [129498]
+                },
+                'man fairy': {
+                    desc: "whole",
+                    codes: [129498, 8205, 9794, 65039]
+                },
+                'woman fairy': {
+                    desc: "whole",
+                    codes: [129498, 8205, 9792, 65039]
+                },
+                'vampire': {
+                    desc: "partial",
+                    codes: [129499]
+                },
+                'man vampire': {
+                    desc: "partial",
+                    codes: [129499, 8205, 9794, 65039]
+                },
+                'woman vampire': {
+                    desc: "partial",
+                    codes: [129499, 8205, 9792, 65039]
+                },
+                'merperson': {
+                    desc: "whole",
+                    codes: [129500]
+                },
+                'merman': {
+                    desc: "whole",
+                    codes: [129500, 8205, 9794, 65039]
+                },
+                'mermaid': {
+                    desc: "whole",
+                    codes: [129500, 8205, 9792, 65039]
+                },
+                'elf': {
+                    desc: "partial",
+                    codes: [129501]
+                },
+                'man elf': {
+                    desc: "partial",
+                    codes: [129501, 8205, 9794, 65039]
+                },
+                'woman elf': {
+                    desc: "partial",
+                    codes: [129501, 8205, 9792, 65039]
+                },
+                'person getting massage': {
+                    desc: "partial",
+                    codes: [128134]
+                },
+                'man getting massage': {
+                    desc: "partial",
+                    codes: [128134, 8205, 9794, 65039]
+                },
+                'woman getting massage': {
+                    desc: "partial",
+                    codes: [128134, 8205, 9792, 65039]
+                },
+                'person getting haircut': {
+                    desc: "partial",
+                    codes: [128135]
+                },
+                'man getting haircut': {
+                    desc: "partial",
+                    codes: [128135, 8205, 9794, 65039]
+                },
+                'woman getting haircut': {
+                    desc: "partial",
+                    codes: [128135, 8205, 9792, 65039]
+                },
+                'person walking': {
+                    desc: "whole",
+                    codes: [128694]
+                },
+                'man walking': {
+                    desc: "whole",
+                    codes: [128694, 8205, 9794, 65039]
+                },
+                'woman walking': {
+                    desc: "whole",
+                    codes: [128694, 8205, 9792, 65039]
+                },
+                'person standing': {
+                    desc: "whole",
+                    codes: [129485]
+                },
+                'man standing': {
+                    desc: "whole",
+                    codes: [129485, 8205, 9794, 65039]
+                },
+                'woman standing': {
+                    desc: "whole",
+                    codes: [129485, 8205, 9792, 65039]
+                },
+                'person kneeling': {
+                    desc: "whole",
+                    codes: [129486]
+                },
+                'man kneeling': {
+                    desc: "whole",
+                    codes: [129486, 8205, 9794, 65039]
+                },
+                'woman kneeling': {
+                    desc: "whole",
+                    codes: [129486, 8205, 9792, 65039]
+                },
+                'person with white cane': {
+                    desc: "whole",
+                    codes: [129489, 8205, 129455]
+                },
+                'man with white cane': {
+                    desc: "whole",
+                    codes: [128104, 8205, 129455]
+                },
+                'woman with white cane': {
+                    desc: "whole",
+                    codes: [128105, 8205, 129455]
+                },
+                'person in motorized wheelchair': {
+                    desc: "whole",
+                    codes: [129489, 8205, 129468]
+                },
+                'man in motorized wheelchair': {
+                    desc: "whole",
+                    codes: [128104, 8205, 129468]
+                },
+                'woman in motorized wheelchair': {
+                    desc: "whole",
+                    codes: [128105, 8205, 129468]
+                },
+                'person in manual wheelchair': {
+                    desc: "whole",
+                    codes: [129489, 8205, 129469]
+                },
+                'man in manual wheelchair': {
+                    desc: "whole",
+                    codes: [128104, 8205, 129469]
+                },
+                'woman in manual wheelchair': {
+                    desc: "whole",
+                    codes: [128105, 8205, 129469]
+                },
+                'person running': {
+                    desc: "whole",
+                    codes: [127939]
+                },
+                'man running': {
+                    desc: "whole",
+                    codes: [127939, 8205, 9794, 65039]
+                },
+                'woman running': {
+                    desc: "whole",
+                    codes: [127939, 8205, 9792, 65039]
+                },
+                'woman dancing': {
+                    desc: "whole",
+                    codes: [128131]
+                },
+                'man dancing': {
+                    desc: "whole",
+                    codes: [128378]
+                },
+                'person in suit levitating': {
+                    desc: "whole",
+                    codes: [128372]
+                },
+                'person in steamy room': {
+                    desc: "partial",
+                    codes: [129494]
+                },
+                'man in steamy room': {
+                    desc: "partial",
+                    codes: [129494, 8205, 9794, 65039]
+                },
+                'woman in steamy room': {
+                    desc: "partial",
+                    codes: [129494, 8205, 9792, 65039]
+                },
+                'person climbing': {
+                    desc: "partial",
+                    codes: [129495]
+                },
+                'man climbing': {
+                    desc: "partial",
+                    codes: [129495, 8205, 9794, 65039]
+                },
+                'woman climbing': {
+                    desc: "partial",
+                    codes: [129495, 8205, 9792, 65039]
+                },
+                'horse racing': {
+                    desc: "whole",
+                    codes: [127943]
+                },
+                'snowboarder': {
+                    desc: "partial",
+                    codes: [127938]
+                },
+                'person golfing': {
+                    desc: "whole",
+                    codes: [127948]
+                },
+                'person surfing': {
+                    desc: "partial",
+                    codes: [127940]
+                },
+                'man surfing': {
+                    desc: "partial",
+                    codes: [127940, 8205, 9794, 65039]
+                },
+                'woman surfing': {
+                    desc: "partial",
+                    codes: [127940, 8205, 9792, 65039]
+                },
+                'person rowing boat': {
+                    desc: "partial",
+                    codes: [128675]
+                },
+                'man rowing boat': {
+                    desc: "partial",
+                    codes: [128675, 8205, 9794, 65039]
+                },
+                'woman rowing boat': {
+                    desc: "partial",
+                    codes: [128675, 8205, 9792, 65039]
+                },
+                'person swimming': {
+                    desc: "partial",
+                    codes: [127946]
+                },
+                'man swimming': {
+                    desc: "partial",
+                    codes: [127946, 8205, 9794, 65039]
+                },
+                'woman swimming': {
+                    desc: "partial",
+                    codes: [127946, 8205, 9792, 65039]
+                },
+                'person bouncing ball': {
+                    desc: "whole",
+                    codes: [9977]
+                },
+                'person lifting weights': {
+                    desc: "whole",
+                    codes: [127947]
+                },
+                'person biking': {
+                    desc: "whole",
+                    codes: [128692]
+                },
+                'man biking': {
+                    desc: "whole",
+                    codes: [128692, 8205, 9794, 65039]
+                },
+                'woman biking': {
+                    desc: "whole",
+                    codes: [128692, 8205, 9792, 65039]
+                },
+                'person mountain biking': {
+                    desc: "partial",
+                    codes: [128693]
+                },
+                'man mountain biking': {
+                    desc: "partial",
+                    codes: [128693, 8205, 9794, 65039]
+                },
+                'woman mountain biking': {
+                    desc: "partial",
+                    codes: [128693, 8205, 9792, 65039]
+                },
+                'person cartwheeling': {
+                    desc: "whole",
+                    codes: [129336]
+                },
+                'man cartwheeling': {
+                    desc: "whole",
+                    codes: [129336, 8205, 9794, 65039]
+                },
+                'woman cartwheeling': {
+                    desc: "whole",
+                    codes: [129336, 8205, 9792, 65039]
+                },
+                'people wrestling': {
+                    desc: "whole",
+                    codes: [129340]
+                },
+                'men wrestling': {
+                    desc: "whole",
+                    codes: [129340, 8205, 9794, 65039]
+                },
+                'women wrestling': {
+                    desc: "whole",
+                    codes: [129340, 8205, 9792, 65039]
+                },
+                'person playing water polo': {
+                    desc: "partial",
+                    codes: [129341]
+                },
+                'man playing water polo': {
+                    desc: "partial",
+                    codes: [129341, 8205, 9794, 65039]
+                },
+                'woman playing water polo': {
+                    desc: "partial",
+                    codes: [129341, 8205, 9792, 65039]
+                },
+                'person playing handball': {
+                    desc: "whole",
+                    codes: [129342]
+                },
+                'man playing handball': {
+                    desc: "whole",
+                    codes: [129342, 8205, 9794, 65039]
+                },
+                'woman playing handball': {
+                    desc: "whole",
+                    codes: [129342, 8205, 9792, 65039]
+                },
+                'person juggling': {
+                    desc: "partial",
+                    codes: [129337]
+                },
+                'man juggling': {
+                    desc: "partial",
+                    codes: [129337, 8205, 9794, 65039]
+                },
+                'woman juggling': {
+                    desc: "partial",
+                    codes: [129337, 8205, 9792, 65039]
+                },
+                'person in lotus position': {
+                    desc: "whole",
+                    codes: [129496]
+                },
+                'man in lotus position': {
+                    desc: "whole",
+                    codes: [129496, 8205, 9794, 65039]
+                },
+                'woman in lotus position': {
+                    desc: "whole",
+                    codes: [129496, 8205, 9792, 65039]
+                },
+                'person taking bath': {
+                    desc: "whole",
+                    codes: [128704]
+                },
+                'person in bed': {
+                    desc: "whole",
+                    codes: [128716]
+                },
+                'women holding hands': {
+                    desc: "whole",
+                    codes: [128109]
+                },
+                'woman and man holding hands': {
+                    desc: "whole",
+                    codes: [128107]
+                },
+                'men holding hands': {
+                    desc: "whole",
+                    codes: [128108]
+                }
+            };
+            emoji = {
+                skinTone: [127995, 127996, 127997, 127998, 127999],
+                skinRand: function(obj, name) {
+                    return this.skin(obj, name, Math.floor(Math.random() * this.skinTone.length));
+                },
+                skin: function(obj, name, num) {
+                    let x = obj[name];
+                    if (num == 0)
+                        return this.makeEmoji(x.codes);
+                    return this.makeEmoji([x.codes[0], this.skinTone[num], ...(x.codes.slice(1))]);
+                },
+                makeEmoji: function(arr) {
+                    return arr.map(x=>String.fromCodePoint(x)).join("");
+                }
+            };
+        
+            flags ={
+AD:{name:"Andorra",codes:[127462,127465],pop:77265,land:470,capital:"Andorra la Vella"},
+AE:{name:"United Arab Emirates",codes:[127462,127466],pop:9890402,land:83600,capital:"Abu Dhabi"},
+AF:{name:"Afghanistan",codes:[127462,127467],pop:38928346,land:652860,capital:"Kabul"},
+AG:{name:"Antigua and Barbuda",codes:[127462,127468],pop:97929,land:440,capital:"Saint John's"},
+AI:{name:"Anguilla",codes:[127462,127470],pop:15003,land:90,capital:""},
+AL:{name:"Albania",codes:[127462,127473],pop:2877797,land:27400,capital:"Tirana (Tirane)"},
+AM:{name:"Armenia",codes:[127462,127474],pop:2963243,land:28470,capital:"Yerevan"},
+AO:{name:"Angola",codes:[127462,127476],pop:32866272,land:1246700,capital:"Luanda"},
+AQ:{name:"Antarctica",codes:[127462,127478],pop:-1,land:-1,capital:""},
+AR:{name:"Argentina",codes:[127462,127479],pop:45195774,land:2736690,capital:"Buenos Aires"},
+AS:{name:"American Samoa",codes:[127462,127480],pop:55191,land:200,capital:""},
+AT:{name:"Austria",codes:[127462,127481],pop:9006398,land:82409,capital:"Vienna"},
+AU:{name:"Australia",codes:[127462,127482],pop:25499884,land:7682300,capital:"Canberra"},
+AW:{name:"Aruba",codes:[127462,127484],pop:106766,land:180,capital:""},
+AX:{name:"Åland Islands",codes:[127462,127485],pop:-1,land:-1,capital:""},
+AZ:{name:"Azerbaijan",codes:[127462,127487],pop:10139177,land:82658,capital:"Baku"},
+BA:{name:"Bosnia and Herzegovina",codes:[127463,127462],pop:3280819,land:51000,capital:"Sarajevo"},
+BB:{name:"Barbados",codes:[127463,127463],pop:287375,land:430,capital:"Bridgetown"},
+BD:{name:"Bangladesh",codes:[127463,127465],pop:164689383,land:130170,capital:"Dhaka"},
+BE:{name:"Belgium",codes:[127463,127466],pop:11589623,land:30280,capital:"Brussels"},
+BF:{name:"Burkina Faso",codes:[127463,127467],pop:20903273,land:273600,capital:"Ouagadougou"},
+BG:{name:"Bulgaria",codes:[127463,127468],pop:6948445,land:108560,capital:"Sofia"},
+BH:{name:"Bahrain",codes:[127463,127469],pop:1701575,land:760,capital:"Manama"},
+BI:{name:"Burundi",codes:[127463,127470],pop:11890784,land:25680,capital:"Gitega[3]"},
+BJ:{name:"Benin",codes:[127463,127471],pop:12123200,land:112760,capital:"Porto Novo[1]"},
+BL:{name:"Saint Barthélemy",codes:[127463,127473],pop:-1,land:-1,capital:""},
+BM:{name:"Bermuda",codes:[127463,127474],pop:62278,land:50,capital:""},
+BN:{name:"Brunei Darussalam",codes:[127463,127475],pop:-1,land:-1,capital:""},
+BO:{name:"Bolivia (Plurinational State of)",codes:[127463,127476],pop:-1,land:-1,capital:""},
+BQ:{name:"Bonaire, Sint Eustatius and Saba",codes:[127463,127478],pop:-1,land:-1,capital:""},
+BR:{name:"Brazil",codes:[127463,127479],pop:212559417,land:8358140,capital:"Brasilia"},
+BS:{name:"Bahamas",codes:[127463,127480],pop:393244,land:10010,capital:"Nassau"},
+BT:{name:"Bhutan",codes:[127463,127481],pop:771608,land:38117,capital:"Thimphu"},
+BV:{name:"Bouvet Island",codes:[127463,127483],pop:-1,land:-1,capital:""},
+BW:{name:"Botswana",codes:[127463,127484],pop:2351627,land:566730,capital:"Gaborone"},
+BY:{name:"Belarus",codes:[127463,127486],pop:9449323,land:202910,capital:"Minsk"},
+BZ:{name:"Belize",codes:[127463,127487],pop:397628,land:22810,capital:"Belmopan"},
+CA:{name:"Canada",codes:[127464,127462],pop:37742154,land:9093510,capital:"Ottawa"},
+CC:{name:"Cocos (Keeling) Islands",codes:[127464,127464],pop:-1,land:-1,capital:""},
+CD:{name:"Congo, Democratic Republic of the",codes:[127464,127465],pop:-1,land:-1,capital:"Kinshasa"},
+CF:{name:"Central African Republic",codes:[127464,127467],pop:4829767,land:622980,capital:"Bangui"},
+CG:{name:"Congo",codes:[127464,127468],pop:5518087,land:341500,capital:""},
+CH:{name:"Switzerland",codes:[127464,127469],pop:8654622,land:39516,capital:"Bern"},
+CI:{name:"Côte d'Ivoire",codes:[127464,127470],pop:26378274,land:318000,capital:""},
+CK:{name:"Cook Islands",codes:[127464,127472],pop:17564,land:240,capital:""},
+CL:{name:"Chile",codes:[127464,127473],pop:19116201,land:743532,capital:"Santiago"},
+CM:{name:"Cameroon",codes:[127464,127474],pop:26545863,land:472710,capital:"Yaounde"},
+CN:{name:"China",codes:[127464,127475],pop:1439323776,land:9388211,capital:"Beijing"},
+CO:{name:"Colombia",codes:[127464,127476],pop:50882891,land:1109500,capital:"Bogota"},
+CR:{name:"Costa Rica",codes:[127464,127479],pop:5094118,land:51060,capital:"San Jose"},
+CU:{name:"Cuba",codes:[127464,127482],pop:11326616,land:106440,capital:"Havana"},
+CV:{name:"Cabo Verde",codes:[127464,127483],pop:555987,land:4030,capital:""},
+CW:{name:"Curaçao",codes:[127464,127484],pop:164093,land:444,capital:""},
+CX:{name:"Christmas Island",codes:[127464,127485],pop:-1,land:-1,capital:""},
+CY:{name:"Cyprus",codes:[127464,127486],pop:1207359,land:9240,capital:"Nicosia"},
+CZ:{name:"Czechia",codes:[127464,127487],pop:-1,land:-1,capital:""},
+DE:{name:"Germany",codes:[127465,127466],pop:83783942,land:348560,capital:"Berlin"},
+DJ:{name:"Djibouti",codes:[127465,127471],pop:988000,land:23180,capital:"Djibouti"},
+DK:{name:"Denmark",codes:[127465,127472],pop:5792202,land:42430,capital:"Copenhagen"},
+DM:{name:"Dominica",codes:[127465,127474],pop:71986,land:750,capital:"Roseau"},
+DO:{name:"Dominican Republic",codes:[127465,127476],pop:10847910,land:48320,capital:"Santo Domingo"},
+DZ:{name:"Algeria",codes:[127465,127487],pop:43851044,land:2381740,capital:"Algiers"},
+EC:{name:"Ecuador",codes:[127466,127464],pop:17643054,land:248360,capital:"Quito"},
+EE:{name:"Estonia",codes:[127466,127466],pop:1326535,land:42390,capital:"Tallinn"},
+EG:{name:"Egypt",codes:[127466,127468],pop:102334404,land:995450,capital:"Cairo"},
+EH:{name:"Western Sahara",codes:[127466,127469],pop:597339,land:266000,capital:""},
+ER:{name:"Eritrea",codes:[127466,127479],pop:3546421,land:101000,capital:"Asmara"},
+ES:{name:"Spain",codes:[127466,127480],pop:46754778,land:498800,capital:"Madrid"},
+ET:{name:"Ethiopia",codes:[127466,127481],pop:114963588,land:1000000,capital:"Addis Ababa"},
+FI:{name:"Finland",codes:[127467,127470],pop:5540720,land:303890,capital:"Helsinki"},
+FJ:{name:"Fiji",codes:[127467,127471],pop:896445,land:18270,capital:"Suva"},
+FK:{name:"Falkland Islands (Malvinas)",codes:[127467,127472],pop:-1,land:-1,capital:""},
+FM:{name:"Micronesia (Federated States of)",codes:[127467,127474],pop:-1,land:-1,capital:""},
+FO:{name:"Faroe Islands",codes:[127467,127476],pop:-1,land:-1,capital:""},
+FR:{name:"France",codes:[127467,127479],pop:65273511,land:547557,capital:"Paris"},
+GA:{name:"Gabon",codes:[127468,127462],pop:2225734,land:257670,capital:"Libreville"},
+GB:{name:"United Kingdom of Great Britain and Northern Ireland",codes:[127468,127463],pop:-1,land:-1,capital:""},
+GD:{name:"Grenada",codes:[127468,127465],pop:112523,land:340,capital:"Saint George's"},
+GE:{name:"Georgia",codes:[127468,127466],pop:3989167,land:69490,capital:"Tbilisi"},
+GF:{name:"French Guiana",codes:[127468,127467],pop:298682,land:82200,capital:""},
+GG:{name:"Guernsey",codes:[127468,127468],pop:-1,land:-1,capital:""},
+GH:{name:"Ghana",codes:[127468,127469],pop:31072940,land:227540,capital:"Accra"},
+GI:{name:"Gibraltar",codes:[127468,127470],pop:33691,land:10,capital:""},
+GL:{name:"Greenland",codes:[127468,127473],pop:56770,land:410450,capital:""},
+GM:{name:"Gambia",codes:[127468,127474],pop:2416668,land:10120,capital:"Banjul"},
+GN:{name:"Guinea",codes:[127468,127475],pop:13132795,land:245720,capital:"Conakry"},
+GP:{name:"Guadeloupe",codes:[127468,127477],pop:400124,land:1690,capital:""},
+GQ:{name:"Equatorial Guinea",codes:[127468,127478],pop:1402985,land:28050,capital:"Malabo"},
+GR:{name:"Greece",codes:[127468,127479],pop:10423054,land:128900,capital:"Athens"},
+GS:{name:"South Georgia and the South Sandwich Islands",codes:[127468,127480],pop:-1,land:-1,capital:""},
+GT:{name:"Guatemala",codes:[127468,127481],pop:17915568,land:107160,capital:"Guatemala City"},
+GU:{name:"Guam",codes:[127468,127482],pop:168775,land:540,capital:""},
+GW:{name:"Guinea-Bissau",codes:[127468,127484],pop:1968001,land:28120,capital:"Bissau"},
+GY:{name:"Guyana",codes:[127468,127486],pop:786552,land:196850,capital:"Georgetown"},
+HK:{name:"Hong Kong",codes:[127469,127472],pop:7496981,land:1050,capital:""},
+HM:{name:"Heard Island and McDonald Islands",codes:[127469,127474],pop:-1,land:-1,capital:""},
+HN:{name:"Honduras",codes:[127469,127475],pop:9904607,land:111890,capital:"Tegucigalpa"},
+HR:{name:"Croatia",codes:[127469,127479],pop:4105267,land:55960,capital:"Zagreb"},
+HT:{name:"Haiti",codes:[127469,127481],pop:11402528,land:27560,capital:"Port au Prince"},
+HU:{name:"Hungary",codes:[127469,127482],pop:9660351,land:90530,capital:"Budapest"},
+ID:{name:"Indonesia",codes:[127470,127465],pop:273523615,land:1811570,capital:"Jakarta"},
+IE:{name:"Ireland",codes:[127470,127466],pop:4937786,land:68890,capital:"Dublin"},
+IL:{name:"Israel",codes:[127470,127473],pop:8655535,land:21640,capital:"Jerusalem (very limited international recognition)[9]"},
+IM:{name:"Isle of Man",codes:[127470,127474],pop:85033,land:570,capital:""},
+IN:{name:"India",codes:[127470,127475],pop:1380004385,land:2973190,capital:"New Delhi"},
+IO:{name:"British Indian Ocean Territory",codes:[127470,127476],pop:-1,land:-1,capital:""},
+IQ:{name:"Iraq",codes:[127470,127478],pop:40222493,land:434320,capital:"Baghdad"},
+IR:{name:"Iran (Islamic Republic of)",codes:[127470,127479],pop:-1,land:-1,capital:""},
+IS:{name:"Iceland",codes:[127470,127480],pop:341243,land:100250,capital:"Reykjavik"},
+IT:{name:"Italy",codes:[127470,127481],pop:60461826,land:294140,capital:"Rome"},
+JE:{name:"Jersey",codes:[127471,127466],pop:-1,land:-1,capital:""},
+JM:{name:"Jamaica",codes:[127471,127474],pop:2961167,land:10830,capital:"Kingston"},
+JO:{name:"Jordan",codes:[127471,127476],pop:10203134,land:88780,capital:"Amman"},
+JP:{name:"Japan",codes:[127471,127477],pop:126476461,land:364555,capital:"Tokyo"},
+KE:{name:"Kenya",codes:[127472,127466],pop:53771296,land:569140,capital:"Nairobi"},
+KG:{name:"Kyrgyzstan",codes:[127472,127468],pop:6524195,land:191800,capital:"Bishkek"},
+KH:{name:"Cambodia",codes:[127472,127469],pop:16718965,land:176520,capital:"Phnom Penh"},
+KI:{name:"Kiribati",codes:[127472,127470],pop:119449,land:810,capital:"Tarawa Atoll"},
+KM:{name:"Comoros",codes:[127472,127474],pop:869601,land:1861,capital:"Moroni"},
+KN:{name:"Saint Kitts and Nevis",codes:[127472,127475],pop:-1,land:-1,capital:"Basseterre"},
+KP:{name:"Korea (Democratic People's Republic of)",codes:[127472,127477],pop:-1,land:-1,capital:""},
+KR:{name:"Korea, Republic of",codes:[127472,127479],pop:-1,land:-1,capital:""},
+KW:{name:"Kuwait",codes:[127472,127484],pop:4270571,land:17820,capital:"Kuwait City"},
+KY:{name:"Cayman Islands",codes:[127472,127486],pop:65722,land:240,capital:""},
+KZ:{name:"Kazakhstan",codes:[127472,127487],pop:18776707,land:2699700,capital:"Nur-Sultan[10]"},
+LA:{name:"Lao People's Democratic Republic",codes:[127473,127462],pop:-1,land:-1,capital:""},
+LB:{name:"Lebanon",codes:[127473,127463],pop:6825445,land:10230,capital:"Beirut"},
+LC:{name:"Saint Lucia",codes:[127473,127464],pop:183627,land:610,capital:"Castries"},
+LI:{name:"Liechtenstein",codes:[127473,127470],pop:38128,land:160,capital:"Vaduz"},
+LK:{name:"Sri Lanka",codes:[127473,127472],pop:21413249,land:62710,capital:"Colombo[18]"},
+LR:{name:"Liberia",codes:[127473,127479],pop:5057681,land:96320,capital:"Monrovia"},
+LS:{name:"Lesotho",codes:[127473,127480],pop:2142249,land:30360,capital:"Maseru"},
+LT:{name:"Lithuania",codes:[127473,127481],pop:2722289,land:62674,capital:"Vilnius"},
+LU:{name:"Luxembourg",codes:[127473,127482],pop:625978,land:2590,capital:"Luxembourg"},
+LV:{name:"Latvia",codes:[127473,127483],pop:1886198,land:62200,capital:"Riga"},
+LY:{name:"Libya",codes:[127473,127486],pop:6871292,land:1759540,capital:"Tripoli"},
+MA:{name:"Morocco",codes:[127474,127462],pop:36910560,land:446300,capital:"Rabat"},
+MC:{name:"Monaco",codes:[127474,127464],pop:39242,land:1,capital:"Monaco"},
+MD:{name:"Moldova, Republic of",codes:[127474,127465],pop:-1,land:-1,capital:""},
+ME:{name:"Montenegro",codes:[127474,127466],pop:628066,land:13450,capital:"Podgorica"},
+MF:{name:"Saint Martin (French part)",codes:[127474,127467],pop:-1,land:-1,capital:""},
+MG:{name:"Madagascar",codes:[127474,127468],pop:27691018,land:581795,capital:"Antananarivo"},
+MH:{name:"Marshall Islands",codes:[127474,127469],pop:59190,land:180,capital:"Majuro"},
+MK:{name:"North Macedonia",codes:[127474,127472],pop:2083374,land:25220,capital:""},
+ML:{name:"Mali",codes:[127474,127473],pop:20250833,land:1220190,capital:"Bamako"},
+MM:{name:"Myanmar",codes:[127474,127474],pop:54409800,land:653290,capital:""},
+MN:{name:"Mongolia",codes:[127474,127475],pop:3278290,land:1553560,capital:"Ulaanbaatar"},
+MO:{name:"Macao",codes:[127474,127476],pop:649335,land:30,capital:""},
+MP:{name:"Northern Mariana Islands",codes:[127474,127477],pop:57559,land:460,capital:""},
+MQ:{name:"Martinique",codes:[127474,127478],pop:375265,land:1060,capital:""},
+MR:{name:"Mauritania",codes:[127474,127479],pop:4649658,land:1030700,capital:"Nouakchott"},
+MS:{name:"Montserrat",codes:[127474,127480],pop:4992,land:100,capital:""},
+MT:{name:"Malta",codes:[127474,127481],pop:441543,land:320,capital:"Valletta"},
+MU:{name:"Mauritius",codes:[127474,127482],pop:1271768,land:2030,capital:"Port Louis"},
+MV:{name:"Maldives",codes:[127474,127483],pop:540544,land:300,capital:"Male"},
+MW:{name:"Malawi",codes:[127474,127484],pop:19129952,land:94280,capital:"Lilongwe"},
+MX:{name:"Mexico",codes:[127474,127485],pop:128932753,land:1943950,capital:"Mexico City"},
+MY:{name:"Malaysia",codes:[127474,127486],pop:32365999,land:328550,capital:"Kuala Lumpur[11]"},
+MZ:{name:"Mozambique",codes:[127474,127487],pop:31255435,land:786380,capital:"Maputo"},
+NA:{name:"Namibia",codes:[127475,127462],pop:2540905,land:823290,capital:"Windhoek"},
+NC:{name:"New Caledonia",codes:[127475,127464],pop:285498,land:18280,capital:""},
+NE:{name:"Niger",codes:[127475,127466],pop:24206644,land:1266700,capital:"Niamey"},
+NF:{name:"Norfolk Island",codes:[127475,127467],pop:-1,land:-1,capital:""},
+NG:{name:"Nigeria",codes:[127475,127468],pop:206139589,land:910770,capital:"Abuja"},
+NI:{name:"Nicaragua",codes:[127475,127470],pop:6624554,land:120340,capital:"Managua"},
+NL:{name:"Netherlands[note 1]",codes:[127475,127473],pop:-1,land:-1,capital:""},
+NO:{name:"Norway",codes:[127475,127476],pop:5421241,land:365268,capital:"Oslo"},
+NP:{name:"Nepal",codes:[127475,127477],pop:29136808,land:143350,capital:"Kathmandu"},
+NR:{name:"Nauru",codes:[127475,127479],pop:10824,land:20,capital:"No official capital"},
+NU:{name:"Niue",codes:[127475,127482],pop:1626,land:260,capital:""},
+NZ:{name:"New Zealand",codes:[127475,127487],pop:4822233,land:263310,capital:"Wellington"},
+OM:{name:"Oman",codes:[127476,127474],pop:5106626,land:309500,capital:"Muscat"},
+PA:{name:"Panama",codes:[127477,127462],pop:4314767,land:74340,capital:"Panama City"},
+PE:{name:"Peru",codes:[127477,127466],pop:32971854,land:1280000,capital:"Lima"},
+PF:{name:"French Polynesia",codes:[127477,127467],pop:280908,land:3660,capital:""},
+PG:{name:"Papua New Guinea",codes:[127477,127468],pop:8947024,land:452860,capital:"Port Moresby"},
+PH:{name:"Philippines",codes:[127477,127469],pop:109581078,land:298170,capital:"Manila"},
+PK:{name:"Pakistan",codes:[127477,127472],pop:220892340,land:770880,capital:"Islamabad"},
+PL:{name:"Poland",codes:[127477,127473],pop:37846611,land:306230,capital:"Warsaw"},
+PM:{name:"Saint Pierre and Miquelon",codes:[127477,127474],pop:-1,land:-1,capital:""},
+PN:{name:"Pitcairn",codes:[127477,127475],pop:-1,land:-1,capital:""},
+PR:{name:"Puerto Rico",codes:[127477,127479],pop:2860853,land:8870,capital:""},
+PS:{name:"Palestine, State of",codes:[127477,127480],pop:-1,land:-1,capital:""},
+PT:{name:"Portugal",codes:[127477,127481],pop:10196709,land:91590,capital:"Lisbon"},
+PW:{name:"Palau",codes:[127477,127484],pop:18094,land:460,capital:"Melekeok"},
+PY:{name:"Paraguay",codes:[127477,127486],pop:7132538,land:397300,capital:"Asuncion"},
+QA:{name:"Qatar",codes:[127478,127462],pop:2881053,land:11610,capital:"Doha"},
+RE:{name:"Réunion",codes:[127479,127466],pop:895312,land:2500,capital:""},
+RO:{name:"Romania",codes:[127479,127476],pop:19237691,land:230170,capital:"Bucharest"},
+RS:{name:"Serbia",codes:[127479,127480],pop:8737371,land:87460,capital:"Belgrade"},
+RU:{name:"Russian Federation",codes:[127479,127482],pop:-1,land:-1,capital:""},
+RW:{name:"Rwanda",codes:[127479,127484],pop:12952218,land:24670,capital:"Kigali"},
+SA:{name:"Saudi Arabia",codes:[127480,127462],pop:34813871,land:2149690,capital:"Riyadh"},
+SB:{name:"Solomon Islands",codes:[127480,127463],pop:686884,land:27990,capital:"Honiara"},
+SC:{name:"Seychelles",codes:[127480,127464],pop:98347,land:460,capital:"Victoria"},
+SD:{name:"Sudan",codes:[127480,127465],pop:43849260,land:1765048,capital:"Khartoum"},
+SE:{name:"Sweden",codes:[127480,127466],pop:10099265,land:410340,capital:"Stockholm"},
+SG:{name:"Singapore",codes:[127480,127468],pop:5850342,land:700,capital:"Singapore"},
+SH:{name:"Saint Helena, Ascension and Tristan da Cunha",codes:[127480,127469],pop:-1,land:-1,capital:""},
+SI:{name:"Slovenia",codes:[127480,127470],pop:2078938,land:20140,capital:"Ljubljana"},
+SJ:{name:"Svalbard and Jan Mayen",codes:[127480,127471],pop:-1,land:-1,capital:""},
+SK:{name:"Slovakia",codes:[127480,127472],pop:5459642,land:48088,capital:"Bratislava"},
+SL:{name:"Sierra Leone",codes:[127480,127473],pop:7976983,land:72180,capital:"Freetown"},
+SM:{name:"San Marino",codes:[127480,127474],pop:33931,land:60,capital:"San Marino"},
+SN:{name:"Senegal",codes:[127480,127475],pop:16743927,land:192530,capital:"Dakar"},
+SO:{name:"Somalia",codes:[127480,127476],pop:15893222,land:627340,capital:"Mogadishu"},
+SR:{name:"Suriname",codes:[127480,127479],pop:586632,land:156000,capital:"Paramaribo"},
+SS:{name:"South Sudan",codes:[127480,127480],pop:11193725,land:610952,capital:"Juba"},
+ST:{name:"Sao Tome and Principe",codes:[127480,127481],pop:-1,land:-1,capital:"Sao Tome"},
+SV:{name:"El Salvador",codes:[127480,127483],pop:6486205,land:20720,capital:"San Salvador"},
+SX:{name:"Sint Maarten (Dutch part)",codes:[127480,127485],pop:-1,land:-1,capital:""},
+SY:{name:"Syrian Arab Republic",codes:[127480,127486],pop:-1,land:-1,capital:""},
+SZ:{name:"Eswatini",codes:[127480,127487],pop:1160164,land:17200,capital:""},
+TC:{name:"Turks and Caicos Islands",codes:[127481,127464],pop:-1,land:-1,capital:""},
+TD:{name:"Chad",codes:[127481,127465],pop:16425864,land:1259200,capital:"N'Djamena"},
+TF:{name:"French Southern Territories",codes:[127481,127467],pop:-1,land:-1,capital:""},
+TG:{name:"Togo",codes:[127481,127468],pop:8278724,land:54390,capital:"Lome"},
+TH:{name:"Thailand",codes:[127481,127469],pop:69799978,land:510890,capital:"Bangkok"},
+TJ:{name:"Tajikistan",codes:[127481,127471],pop:9537645,land:139960,capital:"Dushanbe"},
+TK:{name:"Tokelau",codes:[127481,127472],pop:1357,land:10,capital:""},
+TL:{name:"Timor-Leste",codes:[127481,127473],pop:1318445,land:14870,capital:""},
+TM:{name:"Turkmenistan",codes:[127481,127474],pop:6031200,land:469930,capital:"Ashgabat"},
+TN:{name:"Tunisia",codes:[127481,127475],pop:11818619,land:155360,capital:"Tunis"},
+TO:{name:"Tonga",codes:[127481,127476],pop:105695,land:720,capital:"Nuku'alofa"},
+TR:{name:"Turkey",codes:[127481,127479],pop:84339067,land:769630,capital:"Ankara"},
+TT:{name:"Trinidad and Tobago",codes:[127481,127481],pop:1399488,land:5130,capital:"Port of Spain"},
+TV:{name:"Tuvalu",codes:[127481,127483],pop:11792,land:30,capital:"Funafuti[21]"},
+TW:{name:"Taiwan, Province of China [note 2]",codes:[127481,127484],pop:-1,land:-1,capital:""},
+TZ:{name:"Tanzania, United Republic of",codes:[127481,127487],pop:-1,land:-1,capital:""},
+UA:{name:"Ukraine",codes:[127482,127462],pop:43733762,land:579320,capital:"Kiev"},
+UG:{name:"Uganda",codes:[127482,127468],pop:45741007,land:199810,capital:"Kampala"},
+UM:{name:"United States Minor Outlying Islands",codes:[127482,127474],pop:-1,land:-1,capital:""},
+US:{name:"United States of America",codes:[127482,127480],pop:-1,land:-1,capital:""},
+UY:{name:"Uruguay",codes:[127482,127486],pop:3473730,land:175020,capital:"Montevideo"},
+UZ:{name:"Uzbekistan",codes:[127482,127487],pop:33469203,land:425400,capital:"Tashkent"},
+VA:{name:"Holy See",codes:[127483,127462],pop:801,land:0,capital:""},
+VC:{name:"Saint Vincent and the Grenadines",codes:[127483,127464],pop:-1,land:-1,capital:"Kingstown"},
+VE:{name:"Venezuela (Bolivarian Republic of)",codes:[127483,127466],pop:-1,land:-1,capital:""},
+VG:{name:"Virgin Islands (British)",codes:[127483,127468],pop:-1,land:-1,capital:""},
+VI:{name:"Virgin Islands (U.S.)",codes:[127483,127470],pop:-1,land:-1,capital:""},
+VN:{name:"Viet Nam",codes:[127483,127475],pop:-1,land:-1,capital:""},
+VU:{name:"Vanuatu",codes:[127483,127482],pop:307145,land:12190,capital:"Port Vila"},
+WF:{name:"Wallis and Futuna",codes:[127484,127467],pop:-1,land:-1,capital:""},
+WS:{name:"Samoa",codes:[127484,127480],pop:198414,land:2830,capital:"Apia"},
+YE:{name:"Yemen",codes:[127486,127466],pop:29825964,land:527970,capital:"Sana'a[23]"},
+YT:{name:"Mayotte",codes:[127486,127481],pop:272815,land:375,capital:""},
+ZA:{name:"South Africa",codes:[127487,127462],pop:59308690,land:1213090,capital:"Pretoria, Bloemfontein, Cape Town[17]"},
+ZM:{name:"Zambia",codes:[127487,127474],pop:18383955,land:743390,capital:"Lusaka"},
+ZW:{name:"Zimbabwe",codes:[127487,127484],pop:14862924,land:386850,capital:"Harare"}
+            };
+            /* */
+            //---------------------
+
+            //blah = 'CA'.toUpperCase().replace(/./g, char=>String.fromCodePoint(char.charCodeAt(0) + 127397));
+            //$("#dd_main").prepend(`<div class="flag">${blah}</div>`);
+            $(".dd").prepend(`<div class="flag" title="${flags.CA.name}">${emoji.makeEmoji(flags.CA.codes)}</div>`);
+
+            $("span.emoji").each(function() {
+                $(this).text((aniObj[$(this).text()]["codes"]).map(x=>String.fromCodePoint(x)).join(""));
+            });
+
+            $("#lists").append(`<details id="animals"><summary>animals</summary></details>`);
+            for (let x in aniObj) {
+                $("#animals").append(`<span class="emoj" title="${x}">${aniObj[x].codes.map(n=>String.fromCodePoint(n)).join("")}</span>`);
+            }
+
+            let whole = [];
+            let partial = [];
+            for (let name in people) {
+                if (people[name].desc === "whole")
+                    whole.push(name);
+                else
+                    partial.push(name);
+            }
+            $("#lists").append(`<details id="people"><summary>people</summary></details>`);
+            whole.forEach(y=>$("#people").append(`<span class="emoj" title="${y}">${emoji.skinRand(people, y)}</span>`));
+
+            $("#lists").append(`<details id="partPeople"><summary>partial people</summary></details>`);
+            partial.forEach(y=>$("#partPeople").append(`<span class="emoj" title="${y}">${emoji.skinRand(people, y)}</span>`));
+
+            $("#lists").append(`<details id="flags"><summary>flags</summary></details>`);
+            for (let y in flags) {
+                $("#flags").append(`<span class="emoj" title="${flags[y].name}&mdash; cap:${flags[y].capital} pop:${new Number(flags[y].pop).toLocaleString()} land:${new Number(flags[y].land).toLocaleString()}">${emoji.makeEmoji(flags[y].codes)}</span>`);
+            }
+        </script>
+</html>
